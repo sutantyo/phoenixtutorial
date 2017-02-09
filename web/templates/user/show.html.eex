@@ -1,0 +1,4 @@
+<h1> Showing User </h1>
+<%= render "user.html", user: @user %>
+<p><h4>Status: <%= @user.status %></h4></p>
+<p><h4>Email: <%= @user.email %></h4></p>
