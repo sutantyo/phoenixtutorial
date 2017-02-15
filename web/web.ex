@@ -36,6 +36,7 @@ defmodule App.Web do
 
       import App.Router.Helpers
       import App.Gettext
+      import App.Auth, only: [authenticate_user: 2]
     end
   end
 
@@ -58,6 +59,7 @@ defmodule App.Web do
   def router do
     quote do
       use Phoenix.Router
+      import App.Auth, only: [authenticate_user: 2]
     end
   end
 

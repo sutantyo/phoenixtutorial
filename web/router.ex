@@ -21,10 +21,15 @@ defmodule App.Router do
     get "/hello", HelloController, :world
     get "/hello/:name", HelloController, :world
 
-    resources "/users", UserController, only: [:index, :show, :new, :create]
+    resources "/users", UserController, only: [:index, :show, :new, :create, :delete]
     resources "/sessions", SessionController, only: [:new, :create, :delete]
     resources "/videos", VideoController
+  end
 
+  scope "/manage", App do
+    pipe_through [:browser, :authenticate_user]
+
+    resources "/videos", VideoController
   end
 
   # Other scopes may use custom stacks.

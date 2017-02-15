@@ -1,8 +1,9 @@
 defmodule App.UserController do
   require Logger
+  import App.Auth
   use App.Web, :controller
 
-  plug :authenticate when action in [:index, :show]
+  plug :authenticate_user when action in [:index, :show]
 
   def index(conn, _params) do
     users = App.Repo.all(App.User)
@@ -32,15 +33,12 @@ defmodule App.UserController do
     end
   end #create
 
-  defp authenticate(conn, _opts) do
-    if conn.assigns.current_user do
-      conn
-    else
-      conn
-      |> put_flash(:error, "You must be logged in to access that page")
-      |> redirect(to: page_path(conn, :index))
-      |> halt()
-    end
+  def delete(conn, %{"id" => id}) do
+    user = App.Repo.get!(App.User, id)
+    App.Repo.delete!(user)
+    conn
+    |> put_flash(:info, "User #{user.name} deleted successfully.")
+    |> redirect(to: user_path(conn, :index))
   end
 
 end

@@ -9,6 +9,7 @@ defmodule App.User do
     field :password, :string, virtual: true # virtuals are not persisted in db
     field :password_hash, :string
     field :status, :string
+    has_many :videos, App.Video
 
     timestamps
   end

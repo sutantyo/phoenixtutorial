@@ -4,6 +4,7 @@
   <%= for user <- @users do %>
     <tr>
       <td><b><%= user.name %></b></td>
+      <td><b><%= user.username %></b></td>
       <td>
       <%= if user.status == nil do
             "Inactive"
@@ -11,7 +12,8 @@
             user.status
           end %>
       </td>
-      <td><%= link "View", to: user_path(@conn, :show, user.id) %>
+      <td><%= link "View", to: user_path(@conn, :show, user.id) %></td>
+      <td><%= link "Delete", to: user_path(@conn, :delete, user.id), method: "delete" %> </td>
     </tr>
   <% end %>
 </table>
