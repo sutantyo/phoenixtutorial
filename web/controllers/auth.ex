@@ -1,6 +1,7 @@
 defmodule App.Auth do
   import Plug.Conn
   import Comeonin.Bcrypt, only: [checkpw: 2, dummy_checkpw: 0]
+  import Phoenix.Controller
 
   def init(opts) do
     Keyword.fetch!(opts, :repo)
@@ -36,6 +37,17 @@ defmodule App.Auth do
 
   def logout(conn) do
    configure_session(conn, drop: true)
+  end
+
+  def authenticate_user(conn, _opts) do
+    if conn.assigns.current_user do
+      conn
+    else
+      conn
+      |> put_flash(:error, "You must be logged in to access that page")
+      |> redirect(to: App.Router.Helpers.page_path(conn, :index))
+      |> halt()
+    end
   end
 
 end
