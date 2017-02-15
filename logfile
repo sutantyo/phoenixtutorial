@@ -36,3 +36,8 @@ DETAIL:  Key (name)=(Matthew) already exists.
 STATEMENT:  INSERT INTO "users" ("name","inserted_at","updated_at") VALUES ($1,$2,$3) RETURNING "id"
 ERROR:  table "components_mod_700057" does not exist
 STATEMENT:  DROP TABLE components_mod_700057;
+LOG:  database system was shut down at 2017-02-10 12:03:02 AEDT
+LOG:  MultiXact member wraparound protections are now enabled
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+FATAL:  database "phoenixdb" does not exist

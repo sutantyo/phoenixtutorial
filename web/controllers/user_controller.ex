@@ -1,5 +1,6 @@
 defmodule App.UserController do
   require Logger
+  import App.Auth
   use App.Web, :controller
 
   plug :authenticate_user when action in [:index, :show]
@@ -33,5 +34,11 @@ defmodule App.UserController do
   end #create
 
 
-
+  def delete(conn, %{"id" => id}) do
+    user = App.Repo.get!(App.User, id)
+    App.Repo.delete!(user)
+    conn
+    |> put_flash(:info, "User #{user.name} deleted successfully.")
+    |> redirect(to: user_path(conn, :index))
+  end
 end

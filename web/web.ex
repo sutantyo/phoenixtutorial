@@ -59,7 +59,7 @@ defmodule App.Web do
   def router do
     quote do
       use Phoenix.Router
-
+      
       import App.Auth, only: [authenticate_user: 2]
     end
   end

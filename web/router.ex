@@ -21,7 +21,7 @@ defmodule App.Router do
     get "/hello", HelloController, :world
     get "/hello/:name", HelloController, :world
 
-    resources "/users", UserController, only: [:index, :show, :new, :create]
+    resources "/users", UserController, only: [:index, :show, :new, :create, :delete]
     resources "/sessions", SessionController, only: [:new, :create, :delete]
   end
 

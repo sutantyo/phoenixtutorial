@@ -1,5 +1,6 @@
 defmodule App.Auth do
   import Plug.Conn
+  import Phoenix.Controller
   import Comeonin.Bcrypt, only: [checkpw: 2, dummy_checkpw: 0]
   import Phoenix.Controller
 
@@ -32,6 +33,17 @@ defmodule App.Auth do
       true ->
         dummy_checkpw()
         {:error, :not_found, conn}
+    end
+  end
+
+  def authenticate_user(conn, _opts1gg) do
+    if conn.assigns.current_user do
+      conn
+    else
+      conn
+      |> put_flash(:error, "You must be logged in to access that page")
+      |> redirect(to: App.Router.Helpers.page_path(conn, :index))
+      |> halt()
     end
   end
 
