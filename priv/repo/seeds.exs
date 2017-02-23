@@ -9,3 +9,8 @@
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
+
+
+for category <- ~w(Action Drama Romance Comedy Sci-fi) do
+  App.Repo.insert!(%App.Category{name: category})
+end

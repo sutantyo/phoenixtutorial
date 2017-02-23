@@ -6,6 +6,7 @@ defmodule App.Video do
     field :title, :string
     field :description, :string
     belongs_to :user, App.User
+    belongs_to :category, App.Category
 
     timestamps()
   end
@@ -18,4 +19,7 @@ defmodule App.Video do
     |> cast(params, [:url, :title, :description])
     |> validate_required([:url, :title, :description])
   end
+
+  @required_fields ~w(url title description)
+  @optional_fields ~w(category_id)
 end
