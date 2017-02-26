@@ -19,6 +19,7 @@ defmodule App.User do
     |> cast(params, ~w(username name email status), [])
     # validation
     |> validate_length(:name, min: 1, max: 20)
+    |> unique_constraint(:username)
   end
 
   def registration_changeset(model, params) do

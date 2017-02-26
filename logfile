@@ -51,3 +51,36 @@ LOG:  database system is ready to accept connections
 LOG:  autovacuum launcher started
 FATAL:  lock file "postmaster.pid" already exists
 HINT:  Is another postmaster (PID 19637) running in data directory "/Volumes/MacStorage/pg"?
+ERROR:  duplicate key value violates unique constraint "categories_name_index"
+DETAIL:  Key (name)=(Action) already exists.
+STATEMENT:  INSERT INTO "categories" ("name","inserted_at","updated_at") VALUES ($1,$2,$3) RETURNING "id"
+ERROR:  syntax error at or near "$1" at character 22
+STATEMENT:  SELECT count(*) FROM $1
+ERROR:  duplicate key value violates unique constraint "users_username_index"
+DETAIL:  Key (username)=(admin) already exists.
+STATEMENT:  INSERT INTO "users" ("email","name","password_hash","status","username","inserted_at","updated_at") VALUES ($1,$2,$3,$4,$5,$6,$7) RETURNING "id"
+ERROR:  duplicate key value violates unique constraint "users_username_index"
+DETAIL:  Key (username)=(admin) already exists.
+STATEMENT:  INSERT INTO "users" ("email","name","password_hash","status","username","inserted_at","updated_at") VALUES ($1,$2,$3,$4,$5,$6,$7) RETURNING "id"
+ERROR:  duplicate key value violates unique constraint "users_username_index"
+DETAIL:  Key (username)=(admin) already exists.
+STATEMENT:  INSERT INTO "users" ("email","name","password_hash","status","username","inserted_at","updated_at") VALUES ($1,$2,$3,$4,$5,$6,$7) RETURNING "id"
+ERROR:  syntax error at or near "ls" at character 1
+STATEMENT:  ls
+	select * from videos
+	;
+ERROR:  insert or update on table "videos" violates foreign key constraint "videos_category_id_fkey"
+DETAIL:  Key (category_id)=(12345) is not present in table "categories".
+STATEMENT:  UPDATE "videos" SET "category_id" = $1, "updated_at" = $2 WHERE "id" = $3
+ERROR:  insert or update on table "videos" violates foreign key constraint "videos_category_id_fkey"
+DETAIL:  Key (category_id)=(12345) is not present in table "categories".
+STATEMENT:  UPDATE "videos" SET "category_id" = $1, "updated_at" = $2 WHERE "id" = $3
+ERROR:  insert or update on table "videos" violates foreign key constraint "videos_category_id_fkey"
+DETAIL:  Key (category_id)=(12345) is not present in table "categories".
+STATEMENT:  UPDATE "videos" SET "category_id" = $1, "updated_at" = $2 WHERE "id" = $3
+ERROR:  insert or update on table "videos" violates foreign key constraint "videos_category_id_fkey"
+DETAIL:  Key (category_id)=(12345) is not present in table "categories".
+STATEMENT:  UPDATE "videos" SET "category_id" = $1, "updated_at" = $2 WHERE "id" = $3
+ERROR:  update or delete on table "categories" violates foreign key constraint "videos_category_id_fkey" on table "videos"
+DETAIL:  Key (id)=(2) is still referenced from table "videos".
+STATEMENT:  DELETE FROM "categories" WHERE "id" = $1

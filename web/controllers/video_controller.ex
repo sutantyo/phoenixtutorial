@@ -1,6 +1,8 @@
 defmodule App.VideoController do
+  require Logger
   use App.Web, :controller
 
+  plug :load_categories when action in [:new, :create, :edit, :update]
   alias App.Video
 
   def action(conn,_) do
@@ -21,6 +23,7 @@ defmodule App.VideoController do
   end
 
   def create(conn, %{"video" => video_params}, user) do
+    Logger.info video_params
     changeset = user
     |> build_assoc(:videos)
     |> Video.changeset(video_params)
@@ -47,6 +50,7 @@ defmodule App.VideoController do
   end
 
   def update(conn, %{"id" => id, "video" => video_params}, user) do
+    Logger.info inspect(video_params)
     video = Repo.get!(user_videos(user),id)
     changeset = Video.changeset(video, video_params)
 
@@ -75,5 +79,13 @@ defmodule App.VideoController do
 
   defp user_videos(user) do
     assoc(user,:videos)
+  end
+
+  defp load_categories(conn, _) do
+    query = App.Category
+      |> App.Category.alphabetical
+      |> App.Category.names_and_ids
+    categories = App.Repo.all(query)
+    assign(conn, :categories, categories)
   end
 end
